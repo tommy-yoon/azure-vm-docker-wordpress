@@ -100,6 +100,10 @@ Running docker-compose
     sudo docker-compose up -d 
     ```
 Verify its running
+- 3 Docker images are downloaded
+    ``` sh
+    sudo docker image ls
+    ```
 - 3 containers should be running
     ``` sh
     sudo docker-compose ps
@@ -108,28 +112,24 @@ Verify its running
 Access WordPress web page
 - http://&lt;IP address of VM>/
 - It will show the initialisation page of WordPress
+- Use Wordpress to post articles after the initialisation
 
-Restore backup data
-- Use the preapred MySQL DB file to skip the WordPress initialisation
-    ``` sh
-    ./restore_db.sh 
-    ```
-
-Use Wordpress to post articles
-
-Backup MySQL data
-- Backup data for the future use
-    ``` sh
-    ./backup_db.sh
-    ```
-
-Etc.
+Backup DB and images
+- You can backup/restored blog contents
+    - Refer to [backup_db.sh](./backup_db.sh) and [backup_db.sh](./backup_db.sh)
 - You can backup/restored uploaded images to blogs
-- Refer to [backup_images.sh](./backup_images.sh) and [restore_images.sh](./restore_images.sh)
+    - Refer to [backup_images.sh](./backup_images.sh) and [restore_images.sh](./restore_images.sh)
 
 Shutdown docker-compose
 ``` sh
 sudo docker-compose down
+```
+
+Find and remove Docker volume
+``` sh
+sudo docker volume ls
+
+sudo docker rm <volumen name>
 ```
 
 ⚠️ Don't forget shutting down the Azure VM to avoid charging
