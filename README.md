@@ -47,7 +47,13 @@ Connect to the public GitHub repository
 - clone all the files
     ```
     sudo git clone https://github.com/tommy-yoon/azure-vm-docker-wordpress.git
-
+    ```
+- If requied change owner
+    ``` sh
+    sudo chown -R $USER:$USER azure-vm-docker-wordpress/
+    ```
+- Fetch files from GitHub
+    ``` sh
     cd azure-vm-docker-wordpress
 
     sudo git pull
@@ -120,6 +126,11 @@ Backup DB and images
     - Refer to [backup_db.sh](./backup_db.sh) and [backup_db.sh](./backup_db.sh)
 - You can backup/restored uploaded images to blogs
     - Refer to [backup_images.sh](./backup_images.sh) and [restore_images.sh](./restore_images.sh)
+
+If required, change mod
+``` sh
+chmod 755 *.sh
+```
 
 Shutdown docker-compose
 ``` sh
