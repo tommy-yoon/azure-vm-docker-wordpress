@@ -2,17 +2,17 @@
 
 # Part 1 - Azure MV
 
-![Azure VM](./images/Screenshot%202024-10-20%20172554.png)
+![Azure VM](./azure.png)
 
 Goto portal.azure.com
-- Create account
-- Log in
+- Create a Microsoft account - probably personal account
+- Log in into the account
 
 Create Subscription
-- free credits for one year
+- free credits for one year for practice
 
 Create a VM
-- Name
+- Name - any name
 - Region
     - Australia East
 - Image
@@ -51,7 +51,40 @@ Connect to the public GitHub repository
     cd azure-vm-docker-wordpress
     ```
 
-Install Docker engine
+Install Docker engine & docker-compose
+1. Remove existing Docker packages. 
+    ``` sh
+    sudo apt-get remove docker docker-engine docker.io containerd runc 
+    ```
+2. Update the apt package index. 
+    ``` ah
+    sudo apt-get update 
+    sudo apt-get install ca-certificates curl gnupg 
+    ```
+3. Add the Docker GPG kye. 
+    ``` sh
+    sudo install -m 0755 -d /etc/apt/keyrings 
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg 
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg 
+    ```
+4. Set-up the repository. 
+    ``` sh
+    echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null 
+    ```
+5. Install Docker from the official repo. 
+    ``` sh
+    sudo apt-get update  
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
+    ```
+6. Install docker-compose 
+    ``` sh
+    sudo apt install docker-compose 
+    ```
+7. Verify its installation
+    ``` sh
+    docker --version
+    docker-compose --version
+    ```
 
 Create Dockerfile 
 - actually docker-compose for multiple docker containers
@@ -60,13 +93,18 @@ Create Dockerfile
 
 Build Docker containers
 ``` sh
-docker run
+sudo docker-compose up -d 
 ```
+
 Access WordPress web page
-- Initialisation page
+- http://IP address of VM/
+- It will show the initialisation page of WordPress
 
 Restore backup data
 - Use the preapred MySQL DB file to skip the WordPress initialisation
+    ``` sh
+    ./restore_db.sh 
+    ```
 
 Use Wordpress to post articles
 
