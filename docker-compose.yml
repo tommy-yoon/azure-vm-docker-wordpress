@@ -1,0 +1,41 @@
+---
+services:
+  db:
+    container_name: mysql
+    image: mysql:latest
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: bananas
+
+  php:
+    container_name: php
+    image: wordpress:6.6.1-php8.1-fpm
+    volumes:
+      - ./wordpress:/var/www/html  # WordPress application files are located
+    depends_on:
+      - db
+    ports:
+      - "9000:9000"  # requests from nginx to php
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: bananas
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - "8000:80"  # mapped to 80 of nginx
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # nginx configuration file
+    depends_on:
+      - php
+
+volumes:
+  db_data:
