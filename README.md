@@ -113,6 +113,7 @@ Access WordPress web page
 - http://&lt;IP address of VM>/
 - It will show the initialisation page of WordPress
 - Use Wordpress to post articles after the initialisation
+- Change the them to Twenty Twenty-Two
 
 Backup DB and images
 - You can backup/restored blog contents
