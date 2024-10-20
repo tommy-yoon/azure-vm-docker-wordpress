@@ -33,7 +33,7 @@ SSH connection using Putty
     - convert PEM to PPK
 - Connect to the VM
     - get the public IP from the Azure VM page
-    - Host name: azureuser@ip address
+    - Host name: azureuser@&lt;ip address>
 - Run command for Ubuntu update
     ``` sh
     sudo apt update && sudo apt upgrade -y
@@ -49,6 +49,8 @@ Connect to the public GitHub repository
     sudo git clone https://github.com/tommy-yoon/azure-vm-docker-wordpress.git
 
     cd azure-vm-docker-wordpress
+
+    sudo git pull
     ```
 
 Install Docker engine & docker-compose
@@ -91,13 +93,20 @@ Create Dockerfile
 - YAML format
 - Use docker-compose.yml
 
-Build Docker containers
-``` sh
-sudo docker-compose up -d 
-```
+Running docker-compose
+- Download Docker images
+- Build and run Docker containers
+    ``` sh
+    sudo docker-compose up -d 
+    ```
+Verify its running
+- 3 containers should be running
+    ``` sh
+    sudo docker-compose ps
+    ```
 
 Access WordPress web page
-- http://IP address of VM/
+- http://&lt;IP address of VM>/
 - It will show the initialisation page of WordPress
 
 Restore backup data
@@ -109,4 +118,18 @@ Restore backup data
 Use Wordpress to post articles
 
 Backup MySQL data
-- It can be used to restore the whole site
+- Backup data for the future use
+    ``` sh
+    ./backup_db.sh
+    ```
+
+Etc.
+- You can backup/restored uploaded images to blogs
+- Refer to [backup_images.sh](./backup_images.sh) and [restore_images.sh](./restore_images.sh)
+
+Shutdown docker-compose
+``` sh
+sudo docker-compose down
+```
+
+⚠️ Don't forget shutting down the Azure VM to avoid charging
