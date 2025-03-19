@@ -40,7 +40,7 @@ SSH connection using Putty
     ```
 
 # Part 2 - Docker
-![alt text](./docker.png)
+![alt text](./docker-explanation.png)
 
 ⚠️ Everything below should be done inside the VM
 
